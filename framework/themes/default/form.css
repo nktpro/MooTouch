@@ -1,0 +1,12 @@
+.tableLayout > * > * > :not([type=radio]):not([type=checkbox]) {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    -webkit-appearance: none;
+    font-size: inherit;
+}
+
+.tableLayout > * > * > select {
+    font-size: inherit;
+    float: right;
+}

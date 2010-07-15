@@ -1,0 +1,3 @@
+.monoLayout > :not(.active) {
+    display: none !important;
+}

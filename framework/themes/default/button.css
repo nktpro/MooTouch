@@ -1,0 +1,6 @@
+@import "button/default.css";
+@import "button/bar.css";
+@import "button/list.css";
+@import "button/modal.css";
+
+.buttons > * { text-align: center; }

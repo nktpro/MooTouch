@@ -1,0 +1,81 @@
+.scroller {
+    min-height: 100%;
+    position: absolute;
+    width: 100%;
+    -webkit-transform: translate3d(0, 0, 0);
+    overflow: hidden;
+}
+
+.scroller a, .scroller a:active, .scroller a:hover, .scroller a:visited, .scroller a:link {
+    text-decoration: none;
+    color: inherit;
+}
+
+.scrollView {
+     position: relative;
+     overflow: hidden;
+     width: 100%;
+     height: 100%;
+}
+
+.scrollIndicator {
+    display: block;
+    position: absolute;
+    -webkit-transform: translate3d(0, 0, 0);
+    -webkit-transition-property: opacity;
+    -webkit-transition-duration: .25s;
+    opacity: 0;
+    z-index: 10;
+}
+
+.scrollIndicator > * {
+    display: block;
+    -webkit-transform: translate3d(0, 0, 0);
+    left: 0px;
+    position: absolute;
+    top: 0px;
+}
+
+.scrollIndicator > .top, .scrollIndicator > .end {
+    background-image: url(scroll/indicator/default.png);
+}
+
+.scrollIndicator > .middle {
+    -webkit-transform-origin: left top;
+}
+
+.scrollIndicator.horizontal > * {
+    width: 3px;
+    height: 7px;
+}
+
+.scrollIndicator.horizontal > .middle {
+    left: 3px;
+    width: 1px;
+    /*background-image: url(scroll/indicator/default_horizontal_middle.png);*/
+}
+
+.scrollIndicator.horizontal > .top {
+    background-position: top left;
+}
+
+.scrollIndicator.horizontal > .end {
+    background-position: top right;
+}
+
+.scrollIndicator.vertical {  }
+
+.scrollIndicator.vertical > .end {
+    background-position: bottom left;
+}
+
+.scrollIndicator.vertical > * {
+    width: 7px;
+    height: 3px;
+}
+
+.scrollIndicator.vertical > .middle {
+    top: 3px;
+    height: 1px;
+    /*background-image: url(scroll/indicator/default_vertical_middle.png);*/
+}

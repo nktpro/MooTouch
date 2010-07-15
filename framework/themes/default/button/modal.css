@@ -1,0 +1,38 @@
+button.modal, .button.modal {
+    font-size: 110%;
+    font-weight: bold;
+    height: 46px;
+    line-height: 40px;
+    opacity: 1;
+    border-width: 0 14px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    /*margin: 10px auto;*/
+}
+
+button.modal[disabled], .button.modal.disabled {
+    opacity: 0.4;
+}
+
+button.modal.normal, .button.modal.normal {
+    -webkit-border-image: url(modal/normal.png) 0 14 0 14;
+    text-shadow: #FFF 0 1px 0;
+    color: #000;
+}
+
+button.modal.cancel, .button.modal.cancel {
+    -webkit-border-image: url(modal/red.png) 0 14 0 14;
+    text-shadow: #000 0 -1px 0;
+    color: #FFF;
+}
+
+button.modal.pressed, .button.modal.pressed {
+    -webkit-border-image: url(modal/blue.png) 0 14 0 14 !important;
+    color: #fff;
+    text-shadow: rgba(0,0,0,1) 0 -1px 0;
+}
+
+button.modal.cancel.pressed, .button.modal.cancel.pressed {
+    -webkit-border-image: url(modal/darked.png) 0 14 0 14;
+}

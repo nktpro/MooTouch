@@ -1,0 +1,5 @@
+@import "bar/navigation.css";
+@import "bar/tool.css";
+@import "bar/tab.css";
+
+.bar .icon { vertical-align: middle; }

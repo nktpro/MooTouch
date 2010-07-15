@@ -1,0 +1,72 @@
+.bar.navigation, .bar.navigation.default {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(rgb(205, 213, 223)), color-stop(0.03, rgb(176, 188, 205)), color-stop(0.5, rgb(136, 155, 179)), color-stop(0.51, rgb(129, 149, 175)), color-stop(0.97, rgb(109, 132, 162)), to(rgb(45, 54, 66)));
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    min-height: 44px;
+    padding: 7px 5px;
+    text-align: right;
+    overflow: hidden;
+    white-space: nowrap;
+}
+
+.bar.navigation > div { position: relative; width: 100%; height: 100%; }
+.bar.navigation > div > * { position: absolute; top: 0; }
+.bar.navigation > div > *:not(.back) { right: 0; width: 100%; height: 100%; }
+.bar.navigation > div > .button.bar.back { left: 0; }
+/*
+.bar.navigation > ul { display: table; width: 100%; }
+
+.bar.navigation > :first-child { height: 36px; padding-top: 3px; }
+.bar.navigation > :last-child { height: 36px; padding-bottom: 3px; }
+.bar.navigation > :only-child { height: 44px; }
+
+.bar.navigation > ul > li {
+    vertical-align: middle;
+    display: table-cell;
+}
+
+.bar.navigation > ul > :nth-child(1) { text-align:left; padding-left:4px; }
+.bar.navigation > ul > :nth-child(2) { text-align:center; padding: 0 4px; width:100%; }
+.bar.navigation > ul > :nth-child(3) { text-align:right; padding-right:4px; }
+
+-----Prompt-----
+.bar.navigation h2 {
+    color: #2b3e5a;
+    text-shadow: #c1cbd7 0 1px 1px;
+    text-align: center;
+    font-size: 85%;
+    font-weight: bold;
+}*/
+
+/*-----Title-----*/
+.bar.navigation h1 {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    line-height: 30px;
+    color: #fff;
+    display: inline;
+    font-size: 125%;
+    font-weight: bold;
+    padding: 0;
+    text-align: center;
+}
+
+.bar.navigation h1 > span {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    text-shadow: #2d3642 0 -1px 0;
+    display: inline-block;
+}
+
+/*.barButton > .bar.navigation .icon { margin-top:-5px; }*/
+/*=============Landscape===========*/
+/*body.landscape .bar.navigation > :first-child { height: 28px; }
+body.landscape .bar.navigation > :last-child { height: 28px; padding: 0; }
+body.landscape .bar.navigation > :only-child { height: 32px; padding: 0; }*/
+body.landscape .bar.navigation { min-height: 32px; padding-top: 5px; padding-bottom: 5px; }
+body.landscape .bar.navigation h1 { font-size: 100%; line-height: 22px; }

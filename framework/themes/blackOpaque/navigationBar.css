@@ -1,0 +1,5 @@
+.navigationBar, .navigationBar.blackOpaque {
+    background: -webkit-gradient(linear, 0% 0%, 0% 100%,
+        from(#858585), color-stop(3%, #636363), color-stop(50%, #202020),
+        color-stop(51%, black), color-stop(97%, black), to(#262626));
+}

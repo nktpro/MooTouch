@@ -1,0 +1,26 @@
+button.list, .button.list {
+    background-color: #FFF;
+    border: 1px solid #a9abae;
+    -webkit-border-radius: 10px;
+    -moz-border-radius: 8px;
+    color: #324f85;
+    font-size: 95%;
+    font-weight: bold;
+    padding: 7px 12px;
+    /*margin-top: 10px;*/
+}
+
+button.list.pressed, .button.list.pressed {
+    color: #FFF;
+    background: #015de6 url(../misc/active.png) center repeat-x;
+    border-color: #015de6;
+
+}
+
+a.button.list, a.button.list:hover, a.button.list:active, a.button.list:link {
+    color: #324f85 !important;
+}
+
+a.button.list.pressed, a.button.list.pressed:hover, a.button.list.pressed:active, a.button.list.pressed:link {
+    color: #FFF !important;
+}

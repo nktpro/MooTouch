@@ -1,0 +1,6 @@
+button, .button {
+    background-color: transparent;
+    display: inline-block;
+    border: none;
+    margin: auto auto;
+}

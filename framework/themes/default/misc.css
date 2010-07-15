@@ -1,0 +1,80 @@
+.spinner {
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+	-webkit-mask-image: url(misc/spinner.png);
+	background-color: #000;
+}
+
+.spinner.small {
+    width: 25px;
+    height: 25px;
+	-webkit-mask-image: url(misc/spinner_small.png);
+}
+
+.spinner.pressed {
+	-webkit-animation-name: spinnerRotate;
+	-webkit-animation-duration: 0.6s;
+	-webkit-animation-iteration-count: infinite;
+	-webkit-animation-timing-function: linear;
+}
+
+@-webkit-keyframes spinnerRotate {
+	from {
+		-webkit-transform:rotate(0deg);
+	}
+	to {
+		-webkit-transform:rotate(360deg);
+	}
+}
+
+.touchGlow {
+    /*-webkit-transition-duration: 0.2s;
+    -webkit-transition-property: opacity;*/
+    background: transparent url(misc/glow.png) no-repeat center center;
+    height: 100px;
+    width: 100px;
+    opacity: 0;
+    position: absolute;
+    -webkit-transform: translate3d(0, 0, 0);
+    z-index: -1000;
+}
+
+.touchGlow.pressed { opacity: 1; z-index:3 }
+
+.maskLayer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.2);
+    display: none;
+}
+
+.maskLayer.pressed {
+    display: block;
+}
+
+.maskMessage {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 60%;
+    text-align: center;
+    background: rgba(0, 0, 0, 0.7);
+    padding: 10px;
+    -webkit-border-radius: 10px;
+    color: #FFF;
+    font-size: 110%;
+    font-weight: bold;
+    text-shadow: rgb(0, 0, 0) 0px 2px 1px;
+/*    display: none;*/
+}
+
+.maskMessage .icon {
+    background-color: #FFF !important;
+    display: block;
+    margin: auto auto;
+    margin-bottom: 5px;
+}

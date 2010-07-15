@@ -1,0 +1,117 @@
+.tableLayout {
+    display: table;
+    font-size: 100%;
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableLayout.grouped {
+    color: #000;
+    background: #fff;
+    -webkit-border-radius: 8px;
+    -webkit-box-shadow: 0 0 2px #444; /* draw table "border"  */
+    -moz-border-radius: 8px;
+    -moz-box-shadow: 0 0 2px #444; /* draw table "border"  */
+    border-style: hidden;
+    width: 94%;
+    margin: auto;
+    margin-top: 15px;
+    overflow: hidden;
+}
+
+.tableLayout.grouped:last-child {
+     margin-bottom: 15px;
+}
+
+.tableLayout > * { display: table-row; }
+
+.tableLayout.separated { display: block; }
+.tableLayout.separated > * { display: table; width: 100%; }
+
+.tableLayout.fixed, .tableLayout.separated.fixed > * { table-layout: fixed; }
+
+.tableLayout.grouped > * {
+    color: #000;
+    border-top: 1px solid #a9abae;
+}
+
+.tableLayout > * > * {
+    display: table-cell;
+    vertical-align: middle;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tableLayout > * > .stretch {
+    width: 100%;
+}
+
+.tableLayout.grouped > *:first-child > *:first-child {
+    -webkit-border-top-left-radius: 8px;
+    -moz-border-radius-topleft: 8px;
+}
+
+.tableLayout.grouped > *:first-child > *:last-child {
+    -webkit-border-top-right-radius: 8px;
+    -moz-border-radius-topright: 8px;
+}
+
+.tableLayout.grouped > *:last-child > *:first-child {
+    -webkit-border-bottom-left-radius: 8px;
+    -moz-border-radius-bottomleft: 8px;
+}
+
+.tableLayout.grouped > *:last-child > *:last-child {
+    -webkit-border-bottom-right-radius: 8px;
+    -moz-border-radius-bottomright: 8px;
+}
+
+.tableLayout.grouped > * > * { height: 43px; }
+
+.tableLayout > * > * > *:not(select):not([type=radio]):not([type=checkbox]) {
+    display: block;
+}
+
+.tableLayout.grouped > * > *:first-child  { padding: 0 5px 0 10px }
+.tableLayout.grouped > * > *:last-child { padding: 0 10px 0 5px }
+.tableLayout.grouped > * > *:only-child { padding: 0 10px 0 10px }
+
+.tableLayout.grouped > * > * > label {
+    font-weight: bold;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tableLayout.grouped.navigatable > *, .tableLayout.grouped > .navigatable {
+    font-weight: bold;
+    font-size: 105%;
+}
+
+.tableLayout.navigatable > .pressed, .tableLayout > .navigatable.pressed {
+    background: #015de6 url(../misc/active.png) center repeat-x;
+    color: #FFF;
+    -webkit-background-size: auto 100%;
+}
+
+.tableLayout.navigatable > .pressed *, .tableLayout > .navigatable.pressed * { color: #FFF !important; }
+
+.tableLayout.navigatable > * > *:last-child, .tableLayout > .navigatable > *:last-child {
+    background-image: url(table/chevron.png);
+    background-repeat: no-repeat;
+    background-position: right center;
+    padding-right: 25px !important;
+}
+
+.tableLayout.navigatable > * > *:last-child > i, .tableLayout > .navigatable > *:last-child > i {
+    float: right;
+    font-weight: normal;
+    color: #2E4370;
+    font-style: normal;
+}
+
+.tableLayout.navigatable > .pressed > *:last-child, .tableLayout > .navigatable.pressed > *:last-child {
+    background-image: url(table/chevron_active.png);
+}
+
+.tableLayout.navigatable > .pressed .icon { background-color:#FFF }

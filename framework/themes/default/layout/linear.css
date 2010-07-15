@@ -1,0 +1,8 @@
+.linearLayout, .frameLayout > .linearLayout { display: table; width: 100%; }
+.linearLayout.fixed { table-layout: fixed; }
+
+.linearLayout.vertical > * { display: table-row; }
+.linearLayout.vertical > .flexible { height: 100%; }
+
+.linearLayout.horizontal > * { display: table-cell; vertical-align: middle; }
+.linearLayout.horizontal > .flexible { width: 100%; }

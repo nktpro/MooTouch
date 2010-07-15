@@ -1,0 +1,58 @@
+.bar.tab {
+    background: transparent url(tab/background.png) repeat-x bottom center;
+    -webkit-background-size: 100% 100%;
+    color: #FFF;
+    font-size: 0;
+    text-align: center;
+    -webkit-transform: translateY(0);
+    z-index: 2;
+    white-space: nowrap;
+}
+
+.bar.tab .tab {
+	border: 3px solid transparent;
+    vertical-align: middle;
+    color: #bbb;
+	font-size: 10px;
+    text-align: center;
+	font-weight: bold;
+	text-decoration: none;
+    position: relative;
+}
+
+.bar.tab .tab.active {
+	color: #fff;
+	-webkit-border-image: url(tab/hover.png) 0 3;
+}
+
+.bar.tab .icon {
+    display: block;
+    margin: auto auto;
+    width: 34px;
+    height: 32px;
+    background-image: -webkit-gradient(linear, left top, left bottom, from(#A9A9A9), to(#484848));
+}
+
+.bar.tab .active > .icon {
+    background-image: -webkit-gradient(linear, 38% 0%, 60% 70%, from(#dde9f0), to(#3fc5f8), color-stop(.6,#79b2ec), color-stop(.7,#2e91e5));
+}
+
+.bar.tab .tab .badge {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 24px;
+    height: 24px;
+    -webkit-border-radius: 12px;
+    padding: 0 6px;
+    padding-top: 1px;
+    border: 2px solid #FFF;
+    color: #FFF;
+    font-size: 160%;
+    font-weight: bold;
+    text-align: center;
+    background: transparent url(tab/badge_bg.png) repeat-x;
+    -webkit-background-size: 100% 100%;
+    -webkit-box-shadow: -1px 2px 2px #000;
+    top: -12px;
+}

@@ -1,0 +1,27 @@
+.frameLayout, .frameLayout > * {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.frameLayout > * {
+    position: absolute !important;
+    overflow: hidden;
+/*    opacity: 0;*/
+    visibility: hidden;
+    z-index: -1;
+}
+
+.frameLayout > .top, .frameLayout > .topmost, .frameLayout > .visible {
+/*    opacity: 1;*/
+    visibility: visible;
+    z-index: 1;
+}
+
+/*body.android .frameLayout > * { opacity: 1; visibility: hidden; }
+body.android .frameLayout > .top, body.android .frameLayout > .topmost, body.android .frameLayout > .visible {
+    visibility: visible;
+}*/
+
+.frameLayout > .top { z-index: 2; }
+.frameLayout > .topmost { z-index: 3; }

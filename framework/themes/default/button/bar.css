@@ -1,0 +1,47 @@
+button.bar, .button.bar, button.bar.default, .button.bar.default {
+    margin: 0;
+    -webkit-border-image: url(bar/default.png) 0 5 0 5 stretch stretch;
+    border-width: 0px 5px 0px 5px;
+    padding: 0 5px 0 5px;
+    color: #FFF;
+    font-size: 75%;
+    font-weight: bold;
+    overflow: hidden;
+    text-align: center;
+    text-overflow: ellipsis;
+    text-shadow: rgba(0, 0, 0, 0.597656) 0px -1px 0px;
+    white-space: nowrap;
+    display: inline-block;
+    height: 30px;
+    line-height: 30px;
+    text-decoration: none;
+}
+
+button.bar.back, .button.bar.back, button.bar.back.default, .button.bar.back.default {
+    -webkit-border-image: url(bar/back.png) 0 4 0 12 stretch stretch;
+    border-width: 0px 4px 0px 12px;
+    padding-left: 2px;
+}
+
+button.bar.done, .button.bar.done, button.bar.done.default, .button.bar.done.default {
+    -webkit-border-image: url(bar/done.png) 0 5 0 5 stretch stretch;
+}
+
+button.bar.pressed, .button.bar.pressed, button.bar.default.pressed, .button.bar.default.pressed {
+    -webkit-border-image: url(bar/default_active.png) 0 5 0 5 stretch stretch; }
+button.bar.back.pressed, .button.bar.back.pressed, button.bar.back.default.pressed .button.bar.back.default.pressed {
+    -webkit-border-image: url(bar/back_active.png) 0 4 0 12 stretch stretch; }
+button.bar.done.pressed, .button.bar.done.pressed, button.bar.done.default.pressed, .button.bar.done.default.pressed {
+    -webkit-border-image: url(bar/default.png) 0 5 0 5 stretch stretch;
+}
+
+body.landscape button.bar, body.landscape .button.bar { height: 24px; line-height: 24px; padding: 0 3px 0 3px; }
+body.landscape button.bar.back, body.landscape .button.bar.back { padding-left: 1px; border-left-width: 10px; }
+
+button.bar .icon, .button.bar .icon {
+    width: 20px;
+    height: 20px;
+    background-color: #FFF;
+}
+button.bar.disabled, .button.bar.disabled { color: #AAA; }
+button.bar.disabled .icon, .button.bar.disabled .icon { background-color: #AAA; opacity:0.8; }
