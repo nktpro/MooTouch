@@ -99,9 +99,8 @@ new Namespace('MooTouch.App.Application', {
         }
     },
 
-    onLocationHashChange: function(info) {
-        var parts = info.to.split('/');
-        var history = info.history;
+    onLocationHashChange: function(from, to, history) {
+        var parts = to.split('/');
         var action = parts.shift();
         var params = {};
 
@@ -147,7 +146,7 @@ new Namespace('MooTouch.App.Application', {
         this._locationHash = manager;
 
         return this;
-    },
+    }
 
 //    getView: function() {
 //        if (!this._view)
