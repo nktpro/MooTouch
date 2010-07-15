@@ -165,36 +165,36 @@ new Namespace('MooTouch.App.Application', {
 //        return this;
 //    },
 
-    registerController: function(id, controller) {
-        if (!(controller instanceof MTA.Controller))
-            throw new Error("controller must be an instance of MooTouch.App.Controller");
-
-        if (!this.hasController(id) || this.getController(id) != controller) {
-            controller.setApplication(this);
-            this._controllers.set(id, controller);
-        }
-
-        return this;
-    },
-
-    registerControllers: function(controllers) {
-        Object.each(controllers, function(controller, id) {
-            this.registerController(id, controller);
-        }, this);
-
-        return this;
-    },
-
-    getController: function(id) {
-        if (!this.hasController(id))
-            throw new Error("Controller with id " + id + " does not exist in the collection");
-
-        return this._controllers.get(id);
-    },
-
-    hasController: function(id) {
-        return this._controllers.has(id);
-    }
+//    registerController: function(id, controller) {
+//        if (!(controller instanceof MTA.Controller))
+//            throw new Error("controller must be an instance of MooTouch.App.Controller");
+//
+//        if (!this.hasController(id) || this.getController(id) != controller) {
+//            controller.setApplication(this);
+//            this._controllers.set(id, controller);
+//        }
+//
+//        return this;
+//    },
+//
+//    registerControllers: function(controllers) {
+//        Object.each(controllers, function(controller, id) {
+//            this.registerController(id, controller);
+//        }, this);
+//
+//        return this;
+//    },
+//
+//    getController: function(id) {
+//        if (!this.hasController(id))
+//            throw new Error("Controller with id " + id + " does not exist in the collection");
+//
+//        return this._controllers.get(id);
+//    },
+//
+//    hasController: function(id) {
+//        return this._controllers.has(id);
+//    }
 
 });
 
