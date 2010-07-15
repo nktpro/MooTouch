@@ -184,7 +184,7 @@ new Namespace('MooTouch.Fx.Transition', {
         if (this._isRunning) {
             this._isRunning = false;
 
-            this.element.removeEvent(MooTouch.EVENT_TRANSITIONEND, this._onTransitionEnd);
+            this.element.removeEvent(Browser.Events.TRANSITION_END, this._onTransitionEnd);
 
             clearTimeout(this._transitionEndTimer);
 

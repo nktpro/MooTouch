@@ -8,6 +8,8 @@ new Namespace("MooTouch.App.LocationHash", {
 
     Implements: "MooTouch.Core.ObservableOptions",
 
+    Binds: ['onHashChange'],
+
     options: {
 //      onChange: function(from, to, history){},
         changeDetectionEnabled: false,
@@ -62,8 +64,10 @@ new Namespace("MooTouch.App.LocationHash", {
 
     disableChangeDetection: function() {
         if (this._changeDetectionEnabled) {
-            this.disableTimer();
             this._changeDetectionEnabled = false;
+
+            if (Browser.Features.hashChange)
+                window.removeEvent('hashchange', this.onHashChange);
         }
 
         return this;
@@ -71,52 +75,60 @@ new Namespace("MooTouch.App.LocationHash", {
 
     enableChangeDetection: function() {
         if (!this._changeDetectionEnabled) {
-            this.enableTimer();
             this._changeDetectionEnabled = true;
+
+            if (typeof this._currentLocationHash == 'undefined') {
+                this.updateCurrentData();
+
+                this.fireHashChangeEvent(null, this._currentLocationHash, null);
+            }
+
+            if (!Browser.Features.hashChange) {
+                var self = this;
+
+                setTimeout(function() {
+                    if (self._changeDetectionEnabled) {
+                        var newLocationHash = self.get();
+
+                        if (newLocationHash != self._currentLocationHash)
+                            self.onHashChange(newLocationHash);
+
+                        setTimeout(arguments.callee, self.options.checkInterval);
+                    }
+                }, this.options.checkInterval);
+            } else {
+                window.addEvent('hashchange', this.onHashChange);
+            }
+
         }
 
         return this;
     },
 
-    enableTimer: function() {
-        var from, to, history;
+    onHashChange: function(newLocationHash) {
+        var history, from, to;
 
-        if(typeof this._currentLocationHash == 'undefined') {
-            this.updateCurrentData();
+        if (typeof newLocationHash != 'string')
+            newLocationHash = this.get();
 
-            from = null;
-            to = this._currentLocationHash;
-            history = null;
+        history = MTA.LocationHash.FORWARD;
+        from = this._currentLocationHash;
+        to = newLocationHash;
 
-            this.fireHashChangeEvent(from, to, history);
+        //TODO: This works perfectly with all browsers EXCEPT Firefox!
+        // Let's just skip supporting it for now (no mobile platform)
+        if(global.history.length < this._currentHistoryLength || this._isBack == true) {
+            // The browser's Back button was pressed
+            history = MTA.LocationHash.BACK;
+            this._history.pop();
+            this._isBack = false;
+        } else {
+            if (!this._historyDisabled)
+                this._history.push(this._currentLocationHash);
         }
 
-        this._hashChangeDetectTimer = function() {
-            var newLocationHash = this.get();
-
-            if(newLocationHash != this._currentLocationHash) {
-                history = MTA.LocationHash.FORWARD;
-                from = this._currentLocationHash;
-                to = newLocationHash;
-
-                //TODO: This works perfectly with all browsers EXCEPT Firefox!
-                // Let's just skip supporting it for now (no mobile platform)
-                if(global.history.length < this._currentHistoryLength || this._isBack == true) {
-                    // The browser's Back button was pressed
-                    history = MTA.LocationHash.BACK;
-                    this._history.pop();
-                    this._isBack = false;
-                } else {
-                    if (!this._historyDisabled)
-                        this._history.push(this._currentLocationHash);
-                }
-
-                this.updateCurrentData();
-                this.fireHashChangeEvent(from, to, history);
-            }
-        }.periodical(this.options.checkInterval, this);
-
-        return this;
+        this.updateCurrentData();
+        this.fireHashChangeEvent(from, to, history);
     },
 
     disableHistory: function() {
@@ -125,12 +137,6 @@ new Namespace("MooTouch.App.LocationHash", {
 
     enableHistory: function() {
         this._historyDisabled = false;
-    },
-
-    disableTimer: function() {
-        clearTimeout(this._hashChangeDetectTimer);
-
-        return this;
     },
 
     get: function() {

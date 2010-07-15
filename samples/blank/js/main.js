@@ -6,8 +6,11 @@ Namespace.require({
     ]
 },
 function() {
-    var App = Namespace.use('MooTouch.App');
-    var application = new App.Application();
+    var application = new MooTouch.App.Application();
+
+    application.addEvent('action', function(action, params) {
+        console.log(action);
+    });
 
     // Your code here
 

@@ -5,6 +5,8 @@
     Element.NativeEvents[e] = 3;
 });
 
+Element.NativeEvents['hashchange'] = 1;
+
 [Element, Window, Document].invoke('implement', {
     addEvent: function(type, fn){
 		var events = this.retrieve('events', {});

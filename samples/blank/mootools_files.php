@@ -16,7 +16,7 @@ return array(
         'Core/More', 'Class/Class.Refactor'
     ),
 
-    'misc' => array(
-        'Element/Element.Dimensions.ViewportOnly', 'Element/Element.Touch', 'Class/Class.Mutators'
+    'touch' => array(
+        'Class/Class.Options', 'Browser/Browser', 'Element/Element.Dimensions.ViewportOnly', 'Element/Element.Touch', 'Class/Class.Mutators'
     )
 );

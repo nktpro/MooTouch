@@ -4,7 +4,28 @@ new Namespace("MooTouch.Core.Events", {
 
 	Implements: Events,
 
-    $rememberedEvents: {},
+    removeEvent: function(type, fn){
+		if (!this.$events[type])
+            return this;
+
+        this.$events[type].erase(fn);
+
+		return this;
+	},
+
+	removeEvents: function(events){
+		var type;
+
+		if (typeOf(events) == 'object'){
+			for (type in events) this.removeEvent(type, events[type]);
+            
+			return this;
+		}
+        
+		delete this.$events[events];
+
+		return this;
+	},
 
     oneEvent : function(type, fn, intercept, prepend) {
         return this.addEvent(type, function() {
@@ -14,40 +35,29 @@ new Namespace("MooTouch.Core.Events", {
     },
 
     addEvent: function(type, fn, intercept, prepend){
-		type = Events.removeOn(type);
+        if (!this.$events[type])
+            this.$events[type] =  [];
 
-        if (this.$rememberedEvents[type])
-            fn.run(Array.from(this.$rememberedEvents[type]), this);
-        
-		else {
-			this.$events[type] = this.$events[type] || [];
-			if (intercept) fn.intercept = true;
-            
-            if (!prepend)
-                this.$events[type].include(fn);
-            else {
-                if (!this.$events[type].contains(fn))
-                    this.$events[type].unshift(fn);
-            }
-		}
+        if (intercept) fn.intercept = true;
+
+        if (!prepend)
+            this.$events[type].include(fn);
+        else {
+            if (!this.$events[type].contains(fn))
+                this.$events[type].unshift(fn);
+        }
+
 		return this;
 	},
 
 	addEvents: function(events, intercept, prepend){
-		for (var type in events) this.addEvent(type, events[type], intercept, prepend);
+		for (var type in events)
+            this.addEvent(type, events[type], intercept, prepend);
+
 		return this;
 	},
 
-    fireAndRememberEvent: function(type, args) {
-        type = Events.removeOn(type);
-
-        this.$rememberedEvents[type] = args;
-
-        this.fireEvent.apply(this, arguments);
-    },
-
     fireEvent: function(type, args, lastFn, fireAfter){
-        type = Events.removeOn(type);
         args = Array.from(args);
 
         if (typeof fireAfter == 'undefined')
@@ -55,7 +65,7 @@ new Namespace("MooTouch.Core.Events", {
 
         var listeners;
 
-        if (/*!this.$events || */!this.$events[type])
+        if (!this.$events[type])
             listeners = [];
         else
             listeners = this.$events[type].slice();
@@ -79,8 +89,8 @@ new Namespace("MooTouch.Core.Events", {
     _notifyListeners: function(listeners, args) {
         var continuePropagation = true, fn, newArgs;
 
-        for (var i=0; i<listeners.length; i++) {
-            if(!continuePropagation)
+        for (var i = 0; i < listeners.length; i++) {
+            if(continuePropagation === false)
                 break;
 
             fn = listeners[i];
@@ -94,9 +104,6 @@ new Namespace("MooTouch.Core.Events", {
             }
 
             continuePropagation = fn.run((fn.intercept) ? newArgs : args, this);
-
-            if (continuePropagation !== false)
-                continuePropagation = true;
         }
 
         return continuePropagation;

@@ -17,7 +17,7 @@ new Namespace("MooTouch.Core.ObservableOptions", {
         var changed = false;
 
         if (typeOf(value) == 'function' && (/^on[A-Z]/).test(name)) {
-            this.addEvent(name, value);
+            this.addEvent(Events.removeOn(name), value);
 
         } else if (typeOf(value) == 'object') {
             if (!this.options[name] ||

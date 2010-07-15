@@ -25,21 +25,21 @@ new Namespace("MooTouch.View.Touchable", {
     },
 
     enable: function() {
-        this.element.addEvent(MT.EVENT_TOUCHSTART, this.onTouchStart);
+        this.element.addEvent(Browser.Events.TOUCH_START, this.onTouchStart);
     },
 
     disable: function() {
-        this.element.removeEvent(MT.EVENT_TOUCHSTART, this.onTouchStart);
+        this.element.removeEvent(Browser.Events.TOUCH_START, this.onTouchStart);
     },
 
     _startMonitoring: function() {
-        this.element.addEvent(MT.EVENT_TOUCHMOVE, this.onTouchMove);
-        this.element.addEvent(MT.EVENT_TOUCHEND, this.onTouchEnd);
+        this.element.addEvent(Browser.Events.TOUCH_MOVE, this.onTouchMove);
+        this.element.addEvent(Browser.Events.TOUCH_END, this.onTouchEnd);
     },
 
     _endMonitoring: function() {
-        this.element.removeEvent(MT.EVENT_TOUCHMOVE, this.onTouchMove);
-        this.element.removeEvent(MT.EVENT_TOUCHEND, this.onTouchEnd);
+        this.element.removeEvent(Browser.Events.TOUCH_MOVE, this.onTouchMove);
+        this.element.removeEvent(Browser.Events.TOUCH_END, this.onTouchEnd);
     },
 
     onTouchStart: function(e) {

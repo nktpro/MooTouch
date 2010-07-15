@@ -5,7 +5,7 @@ var MTA = Namespace.use('MooTouch.App');
 
 new Namespace('MooTouch.App.Application', {
 
-    Requires: ['MooTouch.App.LocationHash', 'MooTouch.App.Controller'],
+    Requires: ['MooTouch.App.LocationHash'/*, 'MooTouch.App.Controller'*/],
 
     Extends: 'MooTouch.Core.Base',
 
@@ -23,18 +23,19 @@ new Namespace('MooTouch.App.Application', {
         locationHash: {
             changeDetectionEnabled: false
         },
-        view: {},
         bodyClassName: {
-            profile: MT.ORIENTATION_PROFILE,
-            landscape: MT.ORIENTATION_LANDSCAPE,
+            profile: Browser.Orientation.PROFILE,
+            landscape: Browser.Orientation.LANDSCAPE,
             fullscreen: 'fullscreen'
         }
     },
 
     initialize: function(){
-        if (MT.getApplication() != null)
+        if (MT.getApplication() != null) {
             throw new Error("Application is singleton and was already initialized, " +
                             "please get the instance with MooTouch.getApplication()");
+            return null;
+        }
 
         MT.setApplication(this);
 
@@ -45,7 +46,7 @@ new Namespace('MooTouch.App.Application', {
         this.parent.apply(this, arguments);
 
         // Handle device rotating
-        ['domready', MooTouch.EVENT_ORIENTATIONCHANGE].each(function(eventName){
+        ['domready', Browser.Events.ORIENTATION_CHANGE].each(function(eventName){
             window.addEvent(eventName, this.onOrientationChange);
         }, this);
 
@@ -53,10 +54,10 @@ new Namespace('MooTouch.App.Application', {
         // the address bar is hidden
         window.addEvent('load', this.focus);
 
-        document.body.addClass(MT.getDeviceType());
+        document.body.addClass(Browser.Platform.name);
 
         // Full-screen mode
-        if(MT.isFullScreen)
+        if(Browser.Features.fullScreen)
             document.body.addClass(this.options.bodyClassName.fullscreen);
 
         this.locationHash.addEvent('change', this.onLocationHashChange);
@@ -67,7 +68,6 @@ new Namespace('MooTouch.App.Application', {
     run: function() {
         if (this.options.enableLocationHash)
             this.locationHash.enableChangeDetection();
-        
     },
 
     stopEventIfTargetNotInput: function(e) {
@@ -82,13 +82,13 @@ new Namespace('MooTouch.App.Application', {
     onOptionChange: function(name, value) {
         switch (name) {
             case 'disableDefaultPagePanning':
-                document[(value) ? 'addEvent' : 'removeEvent'](MT.EVENT_TOUCHSTART, this.stopEventIfTargetNotInput);
-                document[(value) ? 'addEvent' : 'removeEvent'](MT.EVENT_TOUCHMOVE, this.stopEventIfTargetNotInput);
-                document[(value) ? 'addEvent' : 'removeEvent'](MT.EVENT_TOUCHEND, this.stopEventIfTargetNotInput);
+                document[(value) ? 'addEvent' : 'removeEvent'](Browser.Events.TOUCH_START, this.stopEventIfTargetNotInput);
+                document[(value) ? 'addEvent' : 'removeEvent'](Browser.Events.TOUCH_MOVE, this.stopEventIfTargetNotInput);
+                document[(value) ? 'addEvent' : 'removeEvent'](Browser.Events.TOUCH_END, this.stopEventIfTargetNotInput);
                 break;
 
             case 'autoFocusOnTouchStart':
-                document[(value) ? 'addEvent' : 'removeEvent'](MT.EVENT_TOUCHSTART, this.focus);
+                document[(value) ? 'addEvent' : 'removeEvent'](Browser.Events.TOUCH_START, this.focus);
                 break;
 
             case 'disableDefaultGesture':
@@ -121,7 +121,7 @@ new Namespace('MooTouch.App.Application', {
     onOrientationChange: function() {
         document.body.removeClass(this.options.bodyClassName.profile)
                      .removeClass(this.options.bodyClassName.landscape)
-                     .addClass((MT.getCurrentOrientation() == MT.ORIENTATION_PROFILE) ?
+                     .addClass((Browser.getOrientation() == Browser.Orientation.PROFILE) ?
                                     this.options.bodyClassName.profile :
                                     this.options.bodyClassName.landscape);
         this.focus();
@@ -134,7 +134,7 @@ new Namespace('MooTouch.App.Application', {
 
     getLocationHash: function() {
         if (!this._locationHash)
-            this._locationHash = new MTA.LocationHash(this.options.locationHash);
+            this._locationHash = new MTA.LocationHash(Object.merge({}, this.options.locationHash, {changeDetectionEnabled: false}));
 
         return this._locationHash;
     },
@@ -195,6 +195,21 @@ new Namespace('MooTouch.App.Application', {
 //        return this._controllers.has(id);
 //    }
 
+}, function() {
+    var instance = null;
+
+    Object.merge(MT, {
+        getApplication: function() {
+            return instance;
+        },
+
+        setApplication: function(app) {
+            if (instance != null)
+                throw new Error("Application is singleton and was already initialized");
+
+            instance = app;
+        }
+    });
 });
 
 })();
