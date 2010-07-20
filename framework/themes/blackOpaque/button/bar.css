@@ -1,0 +1,5 @@
+.button.bar, .button.bar.blackOpaque { -webkit-border-image: url(bar/default.png) 0 5 0 5 stretch stretch /*!important*/; }
+.button.bar.back, .button.bar.back.blackOpaque { -webkit-border-image: url(bar/back.png) 0 4 0 12 stretch stretch; }
+
+.button.bar.pressed, .button.bar.blackOpaque.pressed { -webkit-border-image: url(bar/default_pressed.png) 0 5 0 5 stretch stretch; }
+.button.bar.back.pressed, .button.bar.back.blackOpaque.pressed { -webkit-border-image: url(bar/back_pressed.png) 0 4 0 12 stretch stretch; }
