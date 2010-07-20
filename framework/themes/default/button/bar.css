@@ -28,9 +28,9 @@ button.bar.done, .button.bar.done, button.bar.done.default, .button.bar.done.def
 }
 
 button.bar.pressed, .button.bar.pressed, button.bar.default.pressed, .button.bar.default.pressed {
-    -webkit-border-image: url(bar/default_active.png) 0 5 0 5 stretch stretch; }
+    -webkit-border-image: url(bar/default_pressed.png) 0 5 0 5 stretch stretch; }
 button.bar.back.pressed, .button.bar.back.pressed, button.bar.back.default.pressed .button.bar.back.default.pressed {
-    -webkit-border-image: url(bar/back_active.png) 0 4 0 12 stretch stretch; }
+    -webkit-border-image: url(bar/back_pressed.png) 0 4 0 12 stretch stretch; }
 button.bar.done.pressed, .button.bar.done.pressed, button.bar.done.default.pressed, .button.bar.done.default.pressed {
     -webkit-border-image: url(bar/default.png) 0 5 0 5 stretch stretch;
 }

@@ -61,6 +61,7 @@
     text-overflow: ellipsis;
     text-shadow: #2d3642 0 -1px 0;
     display: inline-block;
+    padding: 0 5px;
 }
 
 /*.barButton > .bar.navigation .icon { margin-top:-5px; }*/

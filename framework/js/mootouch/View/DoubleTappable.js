@@ -16,12 +16,11 @@ new Namespace("MooTouch.View.DoubleTappable", {
 
     initialize: function() {
         this.parent.apply(this, arguments);
+        
         this._tapCount = 0;
     },
 
     onTouchStart: function(e) {
-        this.parent.apply(this, arguments);
-
         if (this._tapCount == 0) {
             this.parent.apply(this, arguments);
         } else {
@@ -40,8 +39,6 @@ new Namespace("MooTouch.View.DoubleTappable", {
     },
 
     onTouchEnd: function(e) {
-        this.parent.apply(this, arguments);
-        
         if (this._tapCount == 0) {
             this._endTime = Date.now();
 

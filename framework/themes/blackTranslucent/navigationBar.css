@@ -1,6 +1,0 @@
-.navigationBar, .navigationBar.backTranslucent {
-    background: -webkit-gradient(linear, 0% 0%, 0% 100%,
-        from(rgba(133, 133, 133, 0.6)), color-stop(0.03, rgba(99, 99, 99, 0.6)),
-        color-stop(0.5, rgba(32, 32, 32, 0.6)), color-stop(0.51, rgba(0, 0, 0, 0.6)),
-        color-stop(0.97, rgba(0, 0, 0, 0.6)), to(rgba(38, 38, 38, 0.6)));
-}

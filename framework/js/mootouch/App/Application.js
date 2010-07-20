@@ -20,9 +20,7 @@ new Namespace('MooTouch.App.Application', {
         disableDefaultGesture: true,
         autoFocusOnTouchStart: true,
         enableLocationHash: true,
-        locationHash: {
-            changeDetectionEnabled: false
-        },
+        locationHash: {},
         bodyClassName: {
             profile: Browser.Orientation.PROFILE,
             landscape: Browser.Orientation.LANDSCAPE,
@@ -36,8 +34,6 @@ new Namespace('MooTouch.App.Application', {
                             "please get the instance with MooTouch.getApplication()");
             return null;
         }
-
-        MT.setApplication(this);
 
         this._controllers = {};
 
@@ -54,13 +50,16 @@ new Namespace('MooTouch.App.Application', {
         // the address bar is hidden
         window.addEvent('load', this.focus);
 
-        document.body.addClass(Browser.Platform.name);
+        document.body.addClass(Browser.Platform.name)
+                     .addClass(Browser.Platform.deviceType);
 
         // Full-screen mode
         if(Browser.Features.fullScreen)
             document.body.addClass(this.options.bodyClassName.fullscreen);
 
         this.locationHash.addEvent('change', this.onLocationHashChange);
+
+        MT.setApplication(this);
 
         return this;
     },
@@ -92,8 +91,13 @@ new Namespace('MooTouch.App.Application', {
                 break;
 
             case 'disableDefaultGesture':
+                var stopEvent = function(e) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                };
+
                 ['gesturestart', 'gesturechange', 'gestureend'].each(function(eventName){
-                    window[(value) ? 'addEvent' : 'removeEvent'](eventName, MT.stopEvent);
+                    window[(value) ? 'addEvent' : 'removeEvent'](eventName, stopEvent);
                 }, this);
                 break;
         }

@@ -103,8 +103,6 @@ new Namespace("MooTouch.View.Draggable", {
     },
 
     onTouchStart: function(e) {
-        this.parent.apply(this, arguments);
-
         if (this._isDragging) {
             this.onTouchEnd(e);
         }
@@ -141,8 +139,6 @@ new Namespace("MooTouch.View.Draggable", {
     },
 
     onTouchMove: function(e) {
-        this.parent.apply(this, arguments);
-
         if(e.targetTouches && e.targetTouches.length != 1)
             return;
 
@@ -166,8 +162,6 @@ new Namespace("MooTouch.View.Draggable", {
     },
 
     onTouchEnd: function(e) {
-        this.parent.apply(this, arguments);
-        
         this._endMonitoring(e);
 
         this._isDragging = false;

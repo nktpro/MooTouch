@@ -35,9 +35,8 @@
     </head>
 
     <body>
-        <div id="rootView" class="frameLayout">
-            <!-- Your Content Here -->
-
+        <div id="rootView">
+            <button id="testButton">Test Me!</button>
         </div>
     </body>
 </html>

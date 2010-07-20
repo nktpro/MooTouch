@@ -44,8 +44,6 @@ new Namespace("MooTouch.View.Swipeable", {
     },
 
     onTouchStart: function(e) {
-        this.parent.apply(this, arguments);
-
         e.preventDefault();
         
         this._startTime = Date.now();
@@ -79,8 +77,6 @@ new Namespace("MooTouch.View.Swipeable", {
     },
 
     onTouchMove: function(e) {
-        this.parent.apply(this, arguments);
-
         e.preventDefault();
 
         if (!this._isMoved)
@@ -105,8 +101,6 @@ new Namespace("MooTouch.View.Swipeable", {
     },
 
     onTouchEnd: function(e) {
-        this.parent.apply(this, arguments);
-
         e.preventDefault();
         
         this._endMonitoring();

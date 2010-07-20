@@ -3,7 +3,7 @@
 new Namespace("MooTouch.Core.ObservableOptions", {
 
     setOptions: function(options){
-        if (typeof(options) != 'object')
+        if (typeOf(options) != 'object')
             throw new Error("options must be an object");
 
         Object.each(options, function(v, n) {

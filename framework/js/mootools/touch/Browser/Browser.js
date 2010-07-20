@@ -13,6 +13,10 @@ Object.merge(Browser.Features, {
     css3dTransforms: (typeof WebKitCSSMatrix != 'undefined' && new WebKitCSSMatrix().hasOwnProperty('m41'))
 });
 
+Object.merge(Browser.Platform, {
+    deviceType: (navigator.userAgent.toLowerCase().match(/ip(?:ad|od|hone)/) || ['other'])[0]
+});
+
 Browser.extend({
     Events: {
         TOUCH_START: (isTouch) ? 'touchstart' : 'mousedown',

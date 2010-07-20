@@ -1,4 +1,4 @@
 @import "default.css";
 
-@import "blackOpaque/navigationBar.css";
-@import "blackOpaque/barButton.css";
+@import "blackOpaque/bar/navigation.css";
+@import "blackOpaque/button/bar.css";

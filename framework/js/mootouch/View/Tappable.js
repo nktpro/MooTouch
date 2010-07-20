@@ -66,8 +66,6 @@ new Namespace("MooTouch.View.Tappable", {
     },
 
     onTouchStart: function(e) {
-        this.parent.apply(this, arguments);
-
         e.preventDefault();
 
         this._startPoint = MTC.Point.fromEvent(e);
@@ -89,8 +87,6 @@ new Namespace("MooTouch.View.Tappable", {
     },
 
     onTouchMove: function(e) {
-        this.parent.apply(this, arguments);
-
         e.preventDefault();
 
         this._newPoint = MTC.Point.fromEvent(e);
@@ -102,8 +98,6 @@ new Namespace("MooTouch.View.Tappable", {
     },
 
     onTouchEnd: function(e) {
-        this.parent.apply(this, arguments);
-
         this._cleanUpPressEvent(e);
         this._endMonitoring(e);
 

@@ -9,9 +9,6 @@ new Namespace("MooTouch.View.Touchable", {
     Binds: ['onTouchStart', 'onTouchMove', 'onTouchEnd'],
 
     options: {
-//      onTouchStart: function(event) {},
-//      onTouchMove: function(event) {},
-//      onTouchEnd: function(event) {},
         enabled: true
     },
 
@@ -42,17 +39,11 @@ new Namespace("MooTouch.View.Touchable", {
         this.element.removeEvent(Browser.Events.TOUCH_END, this.onTouchEnd);
     },
 
-    onTouchStart: function(e) {
-        this.fireEvent('touchStart', [e]);
-    },
+    onTouchStart: function(e) {},
 
-    onTouchMove: function(e) {
-        this.fireEvent('touchMove', [e]);
-    },
+    onTouchMove: function(e) {},
 
-    onTouchEnd: function(e) {
-        this.fireEvent('touchEnd', [e]);
-    }
+    onTouchEnd: function(e) {}
 });
 
 })();

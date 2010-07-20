@@ -6,11 +6,6 @@ if(!window.hasOwnProperty('MooTouch')) {
 
         stylePropertyMappings: {},
 
-        stopEvent: function(e) {
-            e.preventDefault();
-            e.stopPropagation();
-        },
-
         createEvent: function() {
             if(Browser.Features.touch)
                 return MT.createTouchEvent.run(arguments);

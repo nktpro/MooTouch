@@ -8,6 +8,7 @@ Class.Mutators.Exposes = function(exposes){
 
 Class.Mutators.initialize = function(initialize){
 	return function() {
+        if (this.Binds)
 		Array.from(this.Binds).each(function(name){
 			var original = this[name];
 			if (original) this[name] = original.bind(this);

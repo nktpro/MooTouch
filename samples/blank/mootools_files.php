@@ -13,7 +13,7 @@ return array(
     ),
 
     'more1.3wip' => array(
-        'Core/More', 'Class/Class.Refactor'
+        'Core/More', 'Class/Class.Refactor', 'Element/Element.Shortcuts'
     ),
 
     'touch' => array(
