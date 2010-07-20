@@ -11,7 +11,7 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <meta name="apple-touch-fullscreen" content="yes" />
 
-        <title>Sample Navigation</title>
+        <title>Sample Calculator</title>
 
         <link href="../blank/favicon.png" rel="shortcut icon" type="image/x-icon" />
         <link href="../blank/app_icon.png" rel="apple-touch-icon" />
@@ -36,39 +36,24 @@
 
     <body>
         <div id="rootView">
-            <div id="defaultScreen" class="linearLayout vertical">
-                <div>
-                    <div id="defaultNavigationBar" class="bar navigation">
-                        <div>
-                            <span class="left">
-                                <a class="button bar">Thu ti choi</a>
-                            </span>
-
-                            <a role="backControl" class="left button bar back">Back</a>
-
-                            <h1><span role="title" class="title">所有網頁 圖片</span></h1>
-
-                            <span role="controlsContainer" class="right monoLayout">
-                                <a id="testControl1" class="button bar">Button 1</a>
-                                <a id="testControl2" class="button bar ">Control 2 Very Long</a>
-                                <a id="testControl3" class="button bar ">Test 3</a>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-
-
-                <div class="flexible">
-                    <ul style="text-align:center; padding-top: 20px">
-                        <li>
-                            <button id="forwardButton" class="modal normal">Forward</button>
-                        </li>
-
-                        <li style="padding-top: 20px">
-                            <button id="backButton" class="modal normal">Back</button>
-                        </li>
-                    </ul>
-                </div>
+            <div id="calculatorContainer">
+                <table>
+                    <tr>
+                        <td><button class="modal normal">7</button></td>
+                        <td><button class="modal normal">8</button></td>
+                        <td><button class="modal normal">9</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="modal normal">4</button></td>
+                        <td><button class="modal normal">5</button></td>
+                        <td><button class="modal normal">6</button></td>
+                    </tr>
+                    <tr>
+                        <td><button class="modal normal">1</button></td>
+                        <td><button class="modal normal">2</button></td>
+                        <td><button class="modal normal">3</button></td>
+                    </tr>
+                </table>
             </div>
         </div>
     </body>

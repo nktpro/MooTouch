@@ -10,10 +10,14 @@
     white-space: nowrap;
 }
 
-.bar.navigation > div { position: relative; width: 100%; height: 100%; }
+.bar.navigation > div { position: relative; width: 100%; }
 .bar.navigation > div > * { position: absolute; top: 0; }
-.bar.navigation > div > *:not(.back) { right: 0; width: 100%; height: 100%; }
-.bar.navigation > div > .button.bar.back { left: 0; }
+.bar.navigation > div > .right { right: 0; }
+.bar.navigation > div > .right > * { float: right; }
+.bar.navigation > div > .right > .clone { position: absolute; top: 0; right: 0 }
+.bar.navigation > div > .left { left: 0 }
+.bar.navigation > div > .left > * { float: left; }
+.bar.navigation > div > .left > .clone { position: absolute; top: 0; left: 0 }
 /*
 .bar.navigation > ul { display: table; width: 100%; }
 
@@ -41,9 +45,6 @@
 
 /*-----Title-----*/
 .bar.navigation h1 {
-    position: absolute;
-    left: 0;
-    top: 0;
     width: 100%;
     height: 100%;
     line-height: 30px;

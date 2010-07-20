@@ -43,7 +43,6 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
 
         this.initialState();
 
-
         return this;
     },
 
@@ -71,14 +70,30 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
         }
     },
 
-    _cloneForFx: function(el) {
+    _cloneForFx: function(el, rightEdge) {
+        if (rightEdge == undefined)
+            rightEdge = false;
+
         var parent = el.getParent();
-        var pos = el.getPosition(parent);
-        return el.clone().setStyles({
-            position: 'absolute',
-            left: pos.x + 'px',
-            top: pos.y + 'px'
-        }).inject(parent, 'top');
+        var coords = el.getCoordinates(parent);
+        var clone = el.clone();
+        clone.addClass('clone');
+//
+//        console.log(coords);
+//
+//        clone.setStyles({
+//            position: 'absolute',
+//            top: coords.top
+//        });
+//
+//        if (rightEdge)
+//            clone.setStyle('right', -coords.left);
+//        else
+//            clone.setStyle('left', coords.left);
+//
+//        console.log(coords.left);
+
+        return clone.inject(parent, 'top');
     },
 
     _backControlChangeFx: function(from, to, isPrevious, resumeFn) {
@@ -170,7 +185,7 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
                 if (runningTransition)
                     runningTransition.stop();
 
-                clone = this._cloneForFx(fromElement);
+                clone = this._cloneForFx(fromElement, true);
                 cloneTransition = new Fx.Transition(clone, {
                     transitions: Fx.Transition.fadeOut,
                     restoreOnEnd: false
@@ -326,9 +341,6 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
                     this.controlsContainer.setActive(control);
                 }, true);
             }
-
-//            if (back !== false && isPrevious === false)
-//                this._states.push(newState);
 
             this._currentState = newState;
         }, true);

@@ -210,6 +210,16 @@ new Namespace('MooTouch.Fx.Transition', {
             to: { opacity: 0 }
         },
 
+        zoomIn: {
+            from: { transform: { scale: 0.01 } },
+            to: { transform: { scale: 1 } }
+        },
+
+        zoomOut: {
+            from: { transform: { scale: 1 } },
+            to: { transform: { scale: 0.01 } }
+        },
+
         slideLeftIn : {
             from: function() { return { transform: { translate: [this.element.getSize().x] } } },
             to: { transform: {} }
