@@ -42,16 +42,19 @@
                         <td><button class="modal normal">7</button></td>
                         <td><button class="modal normal">8</button></td>
                         <td><button class="modal normal">9</button></td>
+                        <td><button class="modal normal">*</button></td>
                     </tr>
                     <tr>
                         <td><button class="modal normal">4</button></td>
                         <td><button class="modal normal">5</button></td>
                         <td><button class="modal normal">6</button></td>
+                        <td><button class="modal normal">/</button></td>
                     </tr>
                     <tr>
                         <td><button class="modal normal">1</button></td>
                         <td><button class="modal normal">2</button></td>
                         <td><button class="modal normal">3</button></td>
+                        <td><button class="modal normal">-</button></td>
                     </tr>
                 </table>
             </div>

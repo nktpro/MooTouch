@@ -11,9 +11,7 @@ function() {
 
     var container = new MV.Tappable('calculatorContainer');
     
-    container.delegateEvents(function(el){
-        return el.get('tag') == 'button';
-    }, {
+    container.delegateEvents('button', {
         press: function() {
             this.addClass('pressed');
         },
