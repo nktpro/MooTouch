@@ -1,0 +1,16 @@
+@import "../../../framework/themes/blackTranslucent.css";
+
+#albumList a {
+    border-bottom: 1px solid #ACACAC;
+    text-decoration: none;
+    color:#000;
+    font-weight: bold;
+}
+
+#albumList a > span:nth-child(2) { padding-left: 8px; }
+
+.photoList {
+    padding: 0 5px;
+}
+
+#photoListView { overflow: visible !important; }
