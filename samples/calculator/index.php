@@ -17,7 +17,7 @@
         <link href="../blank/app_icon.png" rel="apple-touch-icon" />
         <link href="../blank/app_startup.png" rel="apple-touch-startup-image" />
 
-        <link href="<?php echo FRAMEWORK_PATH ?>themes/default.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="themes/sample.css" media="screen" rel="stylesheet" type="text/css" />
 
         <?php foreach($mootoolsScripts as $package => $files): ?>
             <?php foreach($files as $file): ?>
@@ -28,33 +28,45 @@
         <script type="text/javascript" src="<?php echo FRAMEWORK_PATH ?>js/mootouch/MooTouch.js"></script>
         <script type="text/javascript" src="<?php echo FRAMEWORK_PATH ?>js/mootouch/Namespace.js"></script>
         <script type="text/javascript">
-            Namespace.setBasePath("<?php echo FRAMEWORK_PATH ?>js");
-            Namespace.setBasePath('MooTouch', 'mootouch');
+//            Namespace.setBasePath("<?php echo FRAMEWORK_PATH ?>js");
+            Namespace.setBasePath('MooTouch', '<?php echo FRAMEWORK_PATH ?>js/mootouch');
         </script>
         <script type="text/javascript" src="js/main.js"></script>
     </head>
 
     <body>
         <div id="rootView">
-            <div id="calculatorContainer">
-                <table>
+            <div id="calculator">
+                <div id="result"></div>
+                <table width="100%">
                     <tr>
-                        <td><button class="modal normal">7</button></td>
-                        <td><button class="modal normal">8</button></td>
-                        <td><button class="modal normal">9</button></td>
-                        <td><button class="modal normal">*</button></td>
+                        <td><a class="button modal cancel">C</a></td>
+                        <td><a class="button modal normal">&pi;</a></td>
+                        <td><a class="button modal orange">&radic;</a></td>
+                        <td><a class="button modal orange">&divide;</a></td>
                     </tr>
                     <tr>
-                        <td><button class="modal normal">4</button></td>
-                        <td><button class="modal normal">5</button></td>
-                        <td><button class="modal normal">6</button></td>
-                        <td><button class="modal normal">/</button></td>
+                        <td><a class="button modal normal">7</a></td>
+                        <td><a class="button modal normal">8</a></td>
+                        <td><a class="button modal normal">9</a></td>
+                        <td><a class="button modal orange">&times;</a></td>
                     </tr>
                     <tr>
-                        <td><button class="modal normal">1</button></td>
-                        <td><button class="modal normal">2</button></td>
-                        <td><button class="modal normal">3</button></td>
-                        <td><button class="modal normal">-</button></td>
+                        <td><a class="button modal normal">4</a></td>
+                        <td><a class="button modal normal">5</a></td>
+                        <td><a class="button modal normal">6</a></td>
+                        <td><a class="button modal orange">+</a></td>
+                    </tr>
+                    <tr>
+                        <td><a class="button modal normal">1</a></td>
+                        <td><a class="button modal normal">2</a></td>
+                        <td><a class="button modal normal">3</a></td>
+                        <td><a class="button modal orange">&ndash;</a></td>
+                    </tr>
+                    <tr>
+                        <td colspan="2"><a class="button modal normal">0</a></td>
+                        <td><a class="button modal normal">.</a></td>
+                        <td><a class="button modal orange">=</a></td>
                     </tr>
                 </table>
             </div>

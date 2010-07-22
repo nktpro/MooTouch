@@ -1,1 +1,19 @@
 @import "../../../framework/themes/default.css";
+
+body { background-color: #ddd }
+
+button.modal.orange, .button.modal.orange {
+    -webkit-border-image: url(orange_button.png) 0 14 0 14;
+    text-shadow: rgba(0,0,0,1) 0 -1px 0;
+    color: #FFF;
+}
+
+#calculator { padding: 10px 0; }
+#calculator table { table-layout: fixed }
+#calculator td { padding: 4px; }
+#calculator .button { width: 100%; font-size: 150%; line-height:200%; text-align: center; }
+
+body.landscape #calculator td { padding: 1px 4px; }
+
+#result { height: 50px; border: 2px solid #555; -webkit-border-radius: 10px; padding: 0 7px; overflow: hidden;
+          margin: 0 5px 5px 5px; background: #FFF; text-align: right; font-size: 250%; }

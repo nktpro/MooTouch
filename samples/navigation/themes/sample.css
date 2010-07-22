@@ -1,1 +1,3 @@
 @import "../../../framework/themes/default.css";
+
+.icon.home { -webkit-mask-image: url(home_icon.png); vertical-align:middle; margin-top: -4px; }

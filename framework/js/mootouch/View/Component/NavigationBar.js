@@ -12,7 +12,7 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
 
     Implements: 'MooTouch.Core.ObservableOptions',
 
-    Exposes: ['backControl', 'titleElement', 'controlsContainer'],
+    Exposes: ['backControl', 'titleElement', 'rightControls'],
 
     Binds: ['adjustDisplay'],
 
@@ -26,6 +26,8 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
 
     _currentState: null,
 
+    _inited: false,
+
     initialize: function() {
         this.addEvent('optionChange', this._onOptionChange);
 
@@ -35,13 +37,17 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
         
         this.addEvent('afterStateChange', this.adjustDisplay);
 
+        this._currentState = { back: null, title: null, control: null };
+
         this._initialState = Object.merge({
             back: false,
             title: this.titleElement.get('html'),
-            control: this.controlsContainer.getActive()
+            control: this.rightControls.getActive()
         }, this.options.initialState);
 
         this.initialState();
+
+        this._inited = true;
 
         return this;
     },
@@ -60,44 +66,22 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
                 if (value) {
                     this.addEvent('backControlChange', this._backControlChangeFx, true);
                     this.addEvent('titleChange', this._titleChangeFx);
-                    this.addEvent('activeControlChange', this._activeControlChangeFx, true);
+                    this.addEvent('rightControlChange', this._rightControlChangeFx, true);
                 } else {
                     this.removeEvent('backControlChange', this._backControlChangeFx);
                     this.removeEvent('titleChange', this._titleChangeFx);
-                    this.removeEvent('activeControlChange', this._activeControlChangeFx);
+                    this.removeEvent('rightControlChange', this._rightControlChangeFx);
                 }
                 break;
         }
     },
 
-    _cloneForFx: function(el, rightEdge) {
-        if (rightEdge == undefined)
-            rightEdge = false;
-
-        var parent = el.getParent();
-        var coords = el.getCoordinates(parent);
-        var clone = el.clone();
-        clone.addClass('clone');
-//
-//        console.log(coords);
-//
-//        clone.setStyles({
-//            position: 'absolute',
-//            top: coords.top
-//        });
-//
-//        if (rightEdge)
-//            clone.setStyle('right', -coords.left);
-//        else
-//            clone.setStyle('left', coords.left);
-//
-//        console.log(coords.left);
-
-        return clone.inject(parent, 'top');
+    _cloneForFx: function(el) {
+        return el.clone().addClass('clone').inject(el.getParent(), 'top');
     },
 
     _backControlChangeFx: function(from, to, isPrevious, resumeFn) {
-        if (!this._currentState)
+        if (!this._inited)
             return;
 
         var element = $(this.backControl);
@@ -138,7 +122,7 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
     },
 
     _titleChangeFx: function(from, to, isPrevious) {
-        if (!this._currentState)
+        if (!this._inited)
             return;
 
         if (to) {
@@ -166,8 +150,8 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
         }
     },
 
-    _activeControlChangeFx: function(fromElement, toElement, isPrevious, resumeFn) {
-        if (!this._currentState)
+    _rightControlChangeFx: function(fromElement, toElement, isPrevious, resumeFn) {
+        if (!this._inited)
             return;
         
         fromElement = $(fromElement);
@@ -185,7 +169,7 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
                 if (runningTransition)
                     runningTransition.stop();
 
-                clone = this._cloneForFx(fromElement, true);
+                clone = this._cloneForFx(fromElement);
                 cloneTransition = new Fx.Transition(clone, {
                     transitions: Fx.Transition.fadeOut,
                     restoreOnEnd: false
@@ -196,7 +180,7 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
                 };
             }
 
-            this.oneEvent('afterActiveControlChange', function() {
+            this.oneEvent('afterRightControlChange', function() {
                 new Fx.Transition(toElement, {transitions: Fx.Transition.fadeIn}).run(cleanUpCloneFn);
             });
         }
@@ -205,12 +189,12 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
     adjustDisplay: function() {
         var back = $(this.backControl),
             title = this.titleElement,
-            activeControl = this.controlsContainer.getActive();
+            controls = $(this.rightControls);
 
         back.setStyle('width', '');
         title.setStyle('width', '');
 
-        var availableWidth = this.element.getSize().x - 10 - ((activeControl) ? activeControl.getSize().x : 0),
+        var availableWidth = this.element.getSize().x - 10 - controls.getSize().x,
             backWidth = back.getSize().x,
             titleWidth = title.getSize().x;
 
@@ -239,11 +223,11 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
 
         if (titleCoords.left < backCoords.right)
             titleTranslateX = backCoords.right - titleCoords.left;
-        else if (activeControl) {
-            var activeControlPos = activeControl.getPosition(this.element);
+        else {
+            var rightControlPos = controls.getPosition(this.element);
 
-            if (titleCoords.right > activeControlPos.x)
-                titleTranslateX -= titleCoords.right - activeControlPos.x;
+            if (titleCoords.right > rightControlPos.x)
+                titleTranslateX -= titleCoords.right - rightControlPos.x;
         }
 
         MooTouch.cssTransform(title, { translate: [titleTranslateX] });
@@ -277,16 +261,16 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
         return this._titleElement;
     },
 
-    setControlsContainer: function(container) {
-        this._controlsContainer = container;
+    setRightControls: function(container) {
+        this._rightControls = container;
     },
 
-    getControlsContainer: function() {
-        if (!this._controlsContainer) {
-            this.setControlsContainer(new MV.Container(this.getChildWithRole('controlsContainer')));
+    getRightControls: function() {
+        if (!this._rightControls) {
+            this.setRightControls(new MV.Container(this.getChildWithRole('rightControls')));
         }
 
-        return this._controlsContainer;
+        return this._rightControls;
     },
 
     getCurrentState: function() {
@@ -303,13 +287,44 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
         this._setState(this._initialState, true);
     },
 
+    setBackControlState: function(value, isPrevious) {
+        if (this._currentState.back !== value) {
+            this.fireEvent('backControlChange', [this._currentState.back, value, isPrevious], function() {
+                $(this.backControl)[(value) ? 'show' : 'hide']();
+
+                if (typeOf(value) != 'boolean')
+                    $(this.backControl).set('html', value);
+
+                this._currentState.back = value;
+            }, true);
+        }
+    },
+
+    setTitle: function(value, isPrevious) {
+        if (this._currentState.title !== value) {
+            this.fireEvent('titleChange', [this._currentState.title, value, isPrevious], function() {
+                this.titleElement.set('html', value);
+
+                this._currentState.title = value;
+            }, true);
+        }
+    },
+
+    setRightControl: function(value, isPrevious) {
+        if (this._currentState.control !== value) {
+            this.fireEvent('rightControlChange', [this._currentState.control, value, isPrevious], function() {
+                this.rightControls.setActive(value);
+
+                this._currentState.control = value;
+            }, true);
+        }
+    },
+
     setState: function(back, title, control, isPrevious) {
-        var currentState, newState;
+        var newState;
 
         if (isPrevious == undefined)
             isPrevious = false;
-
-        currentState = this.getCurrentState();
 
         newState = {
             back: (typeof back != 'undefined') ? back : false,
@@ -317,32 +332,10 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
             control: (typeof control != 'undefined') ? control : null
         };
 
-        if (currentState == null)
-            currentState = { back: null, title: null, control: null };
-
-        this.fireEvent('stateChange', [currentState, newState, isPrevious], function() {
-            if (currentState.back !== back) {
-                this.fireEvent('backControlChange', [currentState.back, back, isPrevious], function() {
-                    $(this.backControl)[(back) ? 'show' : 'hide']();
-
-                    if (typeOf(back) != 'boolean')
-                        $(this.backControl).set('html', back);
-                }, true);
-            }
-
-            if (currentState.title !== title) {
-                this.fireEvent('titleChange', [currentState.title, title, isPrevious], function() {
-                    this.titleElement.set('html', title);
-                }, true);
-            }
-
-            if (currentState.control !== control) {
-                this.fireEvent('activeControlChange', [currentState.control, control, isPrevious], function() {
-                    this.controlsContainer.setActive(control);
-                }, true);
-            }
-
-            this._currentState = newState;
+        this.fireEvent('stateChange', [this._currentState, newState, isPrevious], function() {
+            this.setBackControlState(newState.back, isPrevious);
+            this.setTitle(newState.title, isPrevious);
+            this.setRightControl(newState.control, isPrevious);
         }, true);
 
         return this;

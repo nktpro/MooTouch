@@ -17,7 +17,7 @@
         <link href="../blank/app_icon.png" rel="apple-touch-icon" />
         <link href="../blank/app_startup.png" rel="apple-touch-startup-image" />
 
-        <link href="<?php echo FRAMEWORK_PATH ?>themes/default.css" media="screen" rel="stylesheet" type="text/css" />
+        <link href="themes/sample.css" media="screen" rel="stylesheet" type="text/css" />
 
         <?php foreach($mootoolsScripts as $package => $files): ?>
             <?php foreach($files as $file): ?>
@@ -40,15 +40,17 @@
                 <div>
                     <div id="defaultNavigationBar" class="bar navigation">
                         <div>
+                            <h1><span role="title" class="title">JobsCentral</span></h1>
+
                             <span class="left">
-                                <a class="button bar">Thu ti choi</a>
+                                <a id="testControl4" class="button bar">
+                                    <span class="icon home"></span>
+                                </a>
                             </span>
 
                             <a role="backControl" class="left button bar back">Back</a>
 
-                            <h1><span role="title" class="title">所有網頁 圖片</span></h1>
-
-                            <span role="controlsContainer" class="right monoLayout">
+                            <span role="rightControls" class="right monoLayout">
                                 <a id="testControl1" class="button bar">Button 1</a>
                                 <a id="testControl2" class="button bar ">Control 2 Very Long</a>
                                 <a id="testControl3" class="button bar ">Test 3</a>
