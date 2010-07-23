@@ -34,7 +34,7 @@ new Namespace('MooTouch.View.Component.Scroller', {
     initialize: function() {
         this.parent.apply(this, arguments);
 
-        window.addEvent(MT.EVENT_ORIENTATIONCHANGE, this.onOrientationChange);
+        window.addEvent(Browser.Events.ORIENTATION_CHANGE, this.onOrientationChange);
 
         this.addEvent('dragStart', function() {
             this.fireEvent('scrollStart', Array.from(arguments));

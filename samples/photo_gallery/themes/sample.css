@@ -5,6 +5,7 @@
     text-decoration: none;
     color:#000;
     font-weight: bold;
+    height: 75px;
 }
 
 #albumList a > span:nth-child(2) { padding-left: 8px; }
