@@ -15,5 +15,5 @@
 #MooTouch supports:
 
 - All iOS devices v3+ (iPhone / iPod touch / iPad)
-- Android version v2.0+
+- Android v2.0+
 - Palm webOS and BlackBerry will be supported soon
