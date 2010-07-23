@@ -289,33 +289,35 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
 
     setBackControlState: function(value, isPrevious) {
         if (this._currentState.back !== value) {
+            this._currentState.back = value;
+
             this.fireEvent('backControlChange', [this._currentState.back, value, isPrevious], function() {
                 $(this.backControl)[(value) ? 'show' : 'hide']();
 
                 if (typeOf(value) != 'boolean')
                     $(this.backControl).set('html', value);
-
-                this._currentState.back = value;
             }, true);
         }
     },
 
     setTitle: function(value, isPrevious) {
         if (this._currentState.title !== value) {
+            this._currentState.title = value;
+
             this.fireEvent('titleChange', [this._currentState.title, value, isPrevious], function() {
                 this.titleElement.set('html', value);
 
-                this._currentState.title = value;
             }, true);
         }
     },
 
     setRightControl: function(value, isPrevious) {
         if (this._currentState.control !== value) {
+            this._currentState.control = value;
+            
             this.fireEvent('rightControlChange', [this._currentState.control, value, isPrevious], function() {
                 this.rightControls.setActive(value);
 
-                this._currentState.control = value;
             }, true);
         }
     },

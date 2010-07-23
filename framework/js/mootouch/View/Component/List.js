@@ -18,7 +18,7 @@ new Namespace('MooTouch.View.Component.List', {
         },
 
         onItemRelease: function(el) {
-            el.removeClass('pressed');
+            el.removeClass.delay(0, el, ['pressed']);
         },
 
         onItemTap: function(el) {
@@ -36,8 +36,8 @@ new Namespace('MooTouch.View.Component.List', {
 
         var delegateCheck = function(el) {
             return this._items.contains(el);
-        }.bind(this);
 
+        }.bind(this);
         var me = this;
 
         ['press', 'release', 'tap'].each(function(evt) {

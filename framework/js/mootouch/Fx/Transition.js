@@ -13,7 +13,7 @@ new Namespace('MooTouch.Fx.Transition', {
 //      onEnd: $empty,
         storeKeyName: 'mootouch.fx.transition',
         easing: 'ease-in-out',
-        duration: '600ms',
+        duration: '500ms',
         transitions: [],
         restoreOnEnd: true
     },

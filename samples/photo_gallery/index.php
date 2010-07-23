@@ -65,7 +65,7 @@ $photos = array();
                                         if (!($photos[$tag] = $cache->load($tag))){
                                             $photos[$tag] = array();
 
-                                            $results = $flickr->tagSearch($tag, array('sort' => 'interestingness-desc'));
+                                            $results = $flickr->tagSearch($tag, array('sort' => 'interestingness-desc', 'per_page' => 50));
 
                                             foreach ($results as $result) {
                                                 $photos[$tag][] = array(
