@@ -130,12 +130,12 @@ new Namespace('MooTouch.View.Component.NavigationBar', {
             var clone, cloneTransition;
 
             new Fx.Transition(element, {
-                transitions: [Fx.Transition[(isPrevious) ? 'slideRightIn' : 'slideLeftIn']],
+                transitions: [Fx.Transition.fadeIn, Fx.Transition[(isPrevious) ? 'slideRightIn' : 'slideLeftIn']],
                 
                 onStart: function() {
                     clone = this._cloneForFx(element);
                     cloneTransition = new Fx.Transition(clone, {
-                        transitions: [Fx.Transition[(isPrevious) ? 'slideRightOut' : 'slideLeftOut']],
+                        transitions: [Fx.Transition.fadeOut, Fx.Transition[(isPrevious) ? 'slideRightOut' : 'slideLeftOut']],
                         restoreOnEnd: false
                     }).run();
                 }.bind(this),

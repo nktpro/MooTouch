@@ -28,14 +28,12 @@ function() {
 
         navigationBar.setState('Albums', album.capitalize());
 
-        mainContentView.oneEvent('afterActiveChange', function(to, from) {
-            from.addClass('visible');
+        mainContentView.oneEvent('itemBecomeInactive', function(item, resumeFn) {
+            new Fx.Transition(item, {transitions: Fx.Transition.slideLeftOut}).run(resumeFn);
+        }, true);
 
-            new Fx.Transition(from, {transitions: Fx.Transition.slideLeftOut}).addEvent('end', function() {
-                from.removeClass('visible');
-            }).run();
-
-            new Fx.Transition(to, {transitions: Fx.Transition.slideLeftIn}).run();
+        mainContentView.oneEvent('afterItemBecomeActive', function(item) {
+            new Fx.Transition(item, {transitions: Fx.Transition.slideLeftIn}).run();
         });
 
         mainContentView.setActive('photoListView');

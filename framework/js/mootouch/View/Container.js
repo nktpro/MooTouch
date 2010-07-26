@@ -50,10 +50,6 @@ new Namespace('MooTouch.View.Container', {
         return this._items;
     },
 
-    getItemIndex: function(item) {
-        return this.getItems().indexOf($(item));
-    },
-
     hasItem: function(item) {
         return this.getItems().contains($(item));
     },
@@ -67,14 +63,21 @@ new Namespace('MooTouch.View.Container', {
         var currentActiveItem = this.getActive();
 
         if (item != currentActiveItem) {
+
             this.fireEvent('activeChange', [item, currentActiveItem], function() {
                 this._activeItem = item;
+                
+                if (currentActiveItem != null) {
+                    this.fireEvent('itemBecomeInactive', [currentActiveItem], function() {
+                        currentActiveItem.removeClass(this.options.activeItemClassName);
+                    }, true);
+                }
 
-                if (currentActiveItem != null)
-                    currentActiveItem.removeClass(this.options.activeItemClassName);
-
-                if (item != null)
-                    item.addClass(this.options.activeItemClassName);
+                if (item != null) {
+                    this.fireEvent('itemBecomeActive', [item], function() {
+                        item.addClass(this.options.activeItemClassName);
+                    }, true);
+                }
             }, true);
         }
 
