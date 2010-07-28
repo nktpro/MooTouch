@@ -9,11 +9,12 @@ new Namespace('MooTouch.Fx.Transition', {
     Binds: ['_onTransitionEnd', 'run'],
 
     options: {
-//      onStart: $empty,
-//      onEnd: $empty,
+//      onStart: function(){},
+//      onStop: function(){},
+//      onEnd: function(){},
         storeKeyName: 'mootouch.fx.transition',
         easing: 'ease-in-out',
-        duration: '500ms',
+        duration: 1234,
         transitions: [],
         restoreOnEnd: true
     },
@@ -23,6 +24,8 @@ new Namespace('MooTouch.Fx.Transition', {
     _isRunning: false,
 
     _styleSetTimer: null,
+
+    _endFn: null,
 
     from: {},
 
@@ -52,6 +55,13 @@ new Namespace('MooTouch.Fx.Transition', {
         return this;
     },
 
+    setTransitions: function(transitions) {
+        this.from = {};
+        this.to = {};
+        
+        this.mixin(transitions);
+    },
+
     stopRunningTransition: function() {
         var runningTransition = this.element.retrieve(this.options.storeKeyName);
 
@@ -65,13 +75,14 @@ new Namespace('MooTouch.Fx.Transition', {
     },
 
     run: function(fn) {
-        fn = Function.from(fn);
         
         this.stopRunningTransition();
 
         this.element.store(this.options.storeKeyName, this);
         
-        this.fireEvent('start', this.from, function() {
+        this.fireEvent('start', [], function() {
+            this._endFn = fn;
+
             this._isRunning = true;
 
             var properties = [];
@@ -81,16 +92,15 @@ new Namespace('MooTouch.Fx.Transition', {
                 properties.push(MT.getRealStylePropertyName(name));
             }, this);
 
-            this.change('timing-function', this.options.easing)
-                .change('property', properties.join(', '))
-                .change('duration', this.options.duration, 1);
+            this.set('timing-function', this.options.easing)
+                .set('property', properties.join(', '))
+                .set('duration', this.getDurationAsString(), 1);
             
             Object.each(this.to, function(value, name) {
                 this.change(name, value, 1);
             }, this);
 
-            this.oneEvent('end', fn);
-            this._transitionEndTimer = this._onTransitionEnd.delay(this.getDurationInMs(), this);
+            this._transitionEndTimer = this._onTransitionEnd.delay(this.options.duration, this);
         }, true);
 
         return this;
@@ -130,7 +140,7 @@ new Namespace('MooTouch.Fx.Transition', {
         }
 
          var doSetStyleValue = function() {
-            if (name == 'transform')
+            if (name == 'transform' && value != '')
                 MT.cssTransform(this.element, value);
             else
                 this.element.style[MT.getRealStylePropertyName(name)] = value;
@@ -147,27 +157,22 @@ new Namespace('MooTouch.Fx.Transition', {
         return this;
     },
 
-    get: function(name) {
-        return this._properties.get(name);
-    },
+    getDurationAsString: function() {
+        var duration = parseInt(this.options.duration);
 
-    getDurationInMs: function() {
-        var duration = this.options.duration;
-        
-        if (!duration)
-            return 0;
+        if (duration < 1000)
+            return duration + 'ms';
 
-        duration = duration.replace('ms', '');
+        duration /= 1000;
 
-        if (duration.indexOf('s') == duration.length - 1)
-            return parseInt(duration.substring(0, duration.length - 1)) * 1000;
-        else
-            return parseInt(duration);
+        return duration + 's';
     },
 
     stop: function() {
         if (this._isRunning) {
-            this.fireEvent('stop', null, function() {
+            this.fireEvent('stop', [], function() {
+                this._endFn = null;
+
                 Object.each(this._styleSetTimer, function(v, n) {
                     clearTimeout(v);
                     delete this._styleSetTimer[n];
@@ -184,9 +189,11 @@ new Namespace('MooTouch.Fx.Transition', {
         if (this._isRunning) {
             this._isRunning = false;
 
-            this.element.removeEvent(Browser.Events.TRANSITION_END, this._onTransitionEnd);
-
             clearTimeout(this._transitionEndTimer);
+
+            ['duration', 'property', 'timing-function'].each(function(name) {
+                this.set(name, '');
+            }, this);
 
             if (this.options.restoreOnEnd) {
                 this.restore();
@@ -194,7 +201,7 @@ new Namespace('MooTouch.Fx.Transition', {
 
             this.element.eliminate(this.options.storeKeyName);
 
-            this.fireEvent('end');
+            this.fireEvent('end', [], Function.from(this._endFn));
         }
     }
 
@@ -260,6 +267,14 @@ new Namespace('MooTouch.Fx.Transition', {
             to: { transform: {} }
         }
 
+    });
+
+    Element.implement({
+        transition: function(transitions, options, endFn) {
+            new Cls(this, Object.merge({ transitions: transitions }, options)).run(Function.from(endFn));
+            
+            return this;
+        }
     });
 }); // End Class
 

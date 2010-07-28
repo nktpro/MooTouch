@@ -23,36 +23,41 @@ function() {
 
     Component.List.fromDom('albumList');
 
+    window.nav = navigationBar;
+
     application.addEvent('action:viewPhotos', function(params, history) {
         var album = params.album;
 
         navigationBar.setState('Albums', album.capitalize());
 
         mainContentView.oneEvent('itemBecomeInactive', function(item, resumeFn) {
-            new Fx.Transition(item, {transitions: Fx.Transition.slideLeftOut}).run(resumeFn);
+            item.transition(Fx.Transition.slideLeftOut, {}, resumeFn);
+
+            return false;
         }, true);
 
         mainContentView.oneEvent('afterItemBecomeActive', function(item) {
-            new Fx.Transition(item, {transitions: Fx.Transition.slideLeftIn}).run();
+            item.transition(Fx.Transition.slideLeftIn);
         });
 
-        mainContentView.setActive('photoListView');
-
         photoListContainer.setActive('photoList-' + album);
+
+        mainContentView.setActive('photoListView');
     });
 
     application.addEvent('action:viewAlbums', function() {
         navigationBar.initialState();
 
-        mainContentView.oneEvent('afterActiveChange', function(to, from) {
-            from.addClass('visible');
+        mainContentView.oneEvent('itemBecomeInactive', function(item, resumeFn) {
+            item.transition(Fx.Transition.slideRightOut, {}, resumeFn);
 
-            new Fx.Transition(from, {transitions: Fx.Transition.slideRightOut}).addEvent('end', function() {
-                from.removeClass('visible');
-            }).run();
+            return false;
+        }, true);
 
-            new Fx.Transition(to, {transitions: Fx.Transition.slideRightIn}).run();
+        mainContentView.oneEvent('afterItemBecomeActive', function(item) {
+            item.transition(Fx.Transition.slideRightIn);
         });
+
         mainContentView.setActive('albumListView');
     });
 

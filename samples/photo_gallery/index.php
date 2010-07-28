@@ -50,7 +50,11 @@ $photos = array();
 
                             <a href="#viewAlbums" role="backControl" class="left button bar back">Back</a>
 
-                            <span role="rightControls" class="right monoLayout"></span>
+                            <span role="rightControls" class="right monoLayout">
+                                <a id="control1" class="button bar">Test 1</a>
+                                <a id="control2" class="button bar">Test 2</a>
+                                <a id="control3" class="button bar">Test 3</a>
+                            </span>
                         </div>
                     </div>
                 </div>

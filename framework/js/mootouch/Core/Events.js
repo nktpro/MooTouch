@@ -57,6 +57,14 @@ new Namespace("MooTouch.Core.Events", {
 		return this;
 	},
 
+    addEventsOnceBefore: function(events, fn) {
+        this.addEvents(events);
+
+        fn.apply(this);
+
+        this.removeEvents(events);
+    },
+
     fireEvent: function(type, args, lastFn, fireAfter){
         args = Array.from(args);
 
